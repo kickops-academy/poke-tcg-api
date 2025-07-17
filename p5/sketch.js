@@ -1,9 +1,31 @@
 let cartas = [];
+let cartasFiltradas = []
 let carregandoImagem = false;
+
+const types = {
+  "Normal": "⚪️",
+  "Fire": "🔥",
+  "Fighting": "🥊",
+  "Water": "💧",
+  "Flying": "🕊️",
+  "Grass": "🌿",
+  "Poison": "☠️",
+  "Electric": "⚡️",
+  "Ground": "🌍",
+  "Psychic": "🔮",
+  "Rock": "🪨",
+  "Ice": "❄️",
+  "Bug": "🐛",
+  "Dragon": "🐉",
+  "Ghost": "👻",
+  "Dark": "🌑",
+  "Steel": "⚙️",
+  "Fairy": "🧚"
+};
 
 async function buscaCartas() {
   try {
-    const res = await fetch("http://localhost:3000/card/pokemon/random?&category=Pokemon&amount=15");
+    const res = await fetch("http://localhost:3000/card/pokemon/random?&category=Pokemon&amount=10");
     const json = await res.json();
     cartas = await Promise.all(
       json
@@ -13,6 +35,7 @@ async function buscaCartas() {
           return c;
         })
     );
+    cartasFiltradas = cartas
     console.log(cartas)
   } catch (e) {
     errorMessage = "Erro ao buscar a carta.";
@@ -29,9 +52,17 @@ async function setup() {
   button.position(30, 20);
   button.mousePressed(() => buscaCartas());
 
+  let x = 170;
+  for (const tipo in types) {
+    button = createButton(types[tipo] + " " + tipo)
+    button.position(x, 20);
+    button.mousePressed(() => filtrarPorTipo(tipo));
+    x += button.width + 10;
+  }
+  
   // Fetch cards and resize canvas after loading
   await buscaCartas();
-  resizeCanvas(30 + cartas.length * 270, 550);
+  resizeCanvas(30 + cartasFiltradas.length * 270, 550);
 }
 
 function draw() {
@@ -43,18 +74,18 @@ function draw() {
     text('Carregando imagem...', 30, 60);
   }
 
-  if (cartas) {
+  if (cartasFiltradas) {
     mostraCarta();
   }
 }
 
 function mostraCarta() {
-  if (!cartas || cartas.length === 0) {
+  if (!cartasFiltradas || cartasFiltradas.length === 0) {
     return;
   }
-  for (let i = 0; i < cartas.length; i++) {
-    const c = cartas[i];
-    // Only render if c.image is a valid p5.Image and is loaded
+  for (let i = 0; i < cartasFiltradas.length; i++) {
+    const c = cartasFiltradas[i];
+
     if (
       c.image &&
       typeof c.image === 'object' &&
@@ -89,7 +120,13 @@ function carregarImagem(url) {
   });
 }
 
-// TODO 1. como usar dict
-// TODO 2. filterMethodByType com dict criando botões legais com emoji
-// TODO 3. como funciona e implementa uma pilha
-// TODO 4. reverseString com pilha implementada
+function filtrarPorTipo(tipo) {
+  cartasFiltradas = []
+  for (let i = 0; i < cartas.length; i++) {
+    let type = cartas[i].types[0]
+    if (type === tipo) {
+      cartasFiltradas.push(cartas[i])
+    }
+  }
+  resizeCanvas(30 + cartasFiltradas.length * 270, 550);
+}
