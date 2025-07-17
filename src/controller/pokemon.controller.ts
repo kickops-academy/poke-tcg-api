@@ -6,8 +6,13 @@ export class PokemonController {
     constructor(private readonly pokemonService: PokemonService) { }
 
     @Get('/pokemon/random')
-    async findRandomCardByNameAndCategory(@Query('name') name: string, @Query('category') category: string) {
-        if (!name || !category) return { error: 'Missing name or category query param' };
-        return this.pokemonService.findRandomCardByNameAndCategory(name, category);
+    async findRandomCardsByNameAndCategory(
+        @Query('name') name?: string,
+        @Query('category') category?: string,
+        @Query('amount') amount?: number
+    ) {
+        const amountNum = Number(amount);
+        if (!category || isNaN(amountNum)) return { error: 'Missing category or amount query param' };
+        return this.pokemonService.findRandomCardsByNameAndCategory(name, category, amountNum);
     }
 }
