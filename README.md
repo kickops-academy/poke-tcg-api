@@ -1,13 +1,26 @@
-# Poke TCG API
+# :beginner: `poke-tcg-api`
 
-A simple NestJS API with layered architecture (controller, service, model) for Pokemon TCG cards.
+> Uma API NestJS simples, utilizando arquitetura em camadas, para cartas do 
+> Pokémon TCG.
 
-## Prerequisites
+Olá!
 
-1. **Install Node.js:**
+Este repositório contém o código da API apresentada nos encontros III e V da 
+segunda semana do First Build!
 
+É uma API Simples, usando NestJS e Express, com arquitetura em camadas 
+(controller, service, model, etc.), atuando como middleman na comunicação com 
+uma API especializada em cartas do Pokémon TCG.
+
+---
+
+## Requisitos
+
+- [**Node.js**](https://nodejs.org/en/download/) `v23.x.x+` instalado
+
+  Para instalar o Node.js:
    - **Windows:**
-     Download and install from [nodejs.org](https://nodejs.org/)
+     Baixe o instalador diretamente de [nodejs.org](https://nodejs.org/)
 
    - **macOS:**
      ```bash
@@ -20,39 +33,38 @@ A simple NestJS API with layered architecture (controller, service, model) for P
      sudo apt update
      sudo apt install nodejs npm
      ```
+- Extensão **p5.js** no VS Code
+  - Para mais detalhes, veja a [documentação oficial](https://p5js.org/tutorials/setting-up-your-environment/#vscode)
 
-2. **Install p5.js on VS Code:**
-   - For more details, see the [official p5.js VS Code setup guide](https://p5js.org/tutorials/setting-up-your-environment/#vscode)
+---
 
-## Getting Started
+## Instruções
 
-3. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+- Clone este repositório ou baixe o arquivo ZIP;
+- Abra o terminal na pasta do projeto;
+- Com o **Node** já instalado, execute o comando `npm install` para instalar as dependências;
+- Execute o comando `npm run start:dev` para iniciar o servidor de desenvolvimento;
+- Abra o navegador e acesse `http://localhost:3000/` para ver se o projeto está sendo executado;
+- Edite os arquivos em `src` ou `p5`, e atualize seu navegador para visualizar alterações;
+- Divirta-se!;
 
-4. **Start the app:**
-   ```bash
-   npm run start
-   ```
-   Or for hot-reload during development:
-   ```bash
-   npm run start:dev
-   ```
+---
 
-## Example Request
+## Como usar
 
-Once the server is running, you can access the API endpoints exposed by the controller. For example, to get a random Pokemon card by name and category, open your browser and go to:
+Uma vez que o servidor está sendo executado, você pode acessar endpoints da API expostos no controller.
+
+Caso deseje solicitar uma carta aleatória pelo nome, e categoria, abra seu navegador e entre em:
 
 ```
 http://localhost:3000/card/pokemon/random?name=pikachu&category=Pokemon&amount=2
 ```
 
-- Replace `pikachu` with the card name you want.
-- Replace `Pokemon` with the category you want. Available categories: `Pokemon`, `Energy`, `Trainer`.
-- Set `amount` to the number of cards you want returned.
+- Troque `pikachu` pelo nome da carta desejada;
+- Troque `Pokemon` pela categoria de cartas que desejar, entre: `Pokemon`, `Energy`, `Trainer`.
+- Defina `amount` para o número de cartas que deseja retornar;
 
-You should see a JSON response from the API, e.g.:
+A API deverá entregar uma resposta JSON similar a:
 
 ```json
 [
@@ -120,3 +132,20 @@ You should see a JSON response from the API, e.g.:
   }
 ]
 ```
+
+---
+
+## Informações adicionais
+
+Para auxiliar, e exemplificar como ferramentas e bibliotecas podem ajudar o desenvolvedor, adicionamos **Swagger** ao projeto.
+
+O que é o Swagger? Melhor ver em primeira mão do que ter uma explicação!
+
+Com o projeto em execução, acesse a seguinte URL em seu navegador:
+
+```http://localhost:3000/docs```
+
+Bacana, né?
+
+À medida em que trabalhamos em projetos, podemos criar endpoints, documentar e exemplificar seu uso com ele, mas tem mais coisas além do que foi mostrado 
+aqui, e recomendamos codar e experimentar para conhecer melhor a ferramenta! :wink:
